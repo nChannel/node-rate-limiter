@@ -1,20 +1,23 @@
 {
-  "name": "limiter",
-  "description": "A generic rate limiter for node.js. Useful for API clients, web crawling, or other tasks that need to be throttled",
-  "version": "1.0.0",
-  "author": "John Hurliman <jhurliman@cull.tv>",
-  "dependencies": { },
+  "name": "limiter2",
+  "description": "Rate limiter for Node.js",
+  "version": "1.1.0",
+  "author": "Francois-Guillaume Ribreau <npm@fgribreau.com> (http://fgribreau.com)",
+  "contributors":[
+    "John Hurliman <jhurliman@cull.tv>"
+  ],
+  "dependencies": {},
   "devDependencies": {
     "assert": "0.4.9",
     "vows": "0.6.3"
   },
   "keywords": ["rate", "limiting", "throttling"],
-  "repository": "git://github.com/jhurliman/node-rate-limiter",
-  "bugs": { "url": "http://github.com/jhurliman/node-rate-limiter/issues" },
+  "repository": "git://github.com/FGRibreau/node-rate-limiter",
+  "bugs": { "url": "https://github.com/FGRibreau/node-rate-limiter/issues" },
   "directories": { "lib": "./lib/" },
   "main": "./index.js",
   "licenses": [{
     "type": "MIT",
-    "url": "http://github.com/jhurliman/node-rate-limiter/raw/master/LICENSE.txt"
+    "url": "https://github.com/FGRibreau/node-rate-limiter/raw/master/LICENSE.txt"
   }]
 }
