@@ -1,13 +1,18 @@
 
 # limiter #
 
-Provides a generic rate limiter for node.js. Useful for API clients, web 
-crawling, or other tasks that need to be throttled. Two classes are exposed, 
-RateLimiter and TokenBucket. TokenBucket provides a lower level interface to 
-rate limiting with a configurable burst rate and drip rate. RateLimiter sits 
-on top of the token bucket and adds a restriction on the maximum number of 
-tokens that can be removed each interval to comply with common API 
+Provides a generic rate limiter for node.js. Useful for API clients, web
+crawling, or other tasks that need to be throttled. Two classes are exposed,
+RateLimiter and TokenBucket. TokenBucket provides a lower level interface to
+rate limiting with a configurable burst rate and drip rate. RateLimiter sits
+on top of the token bucket and adds a restriction on the maximum number of
+tokens that can be removed each interval to comply with common API
 restrictions like "150 requests per hour maximum".
+
+## Fork by @FGRibreau
+* Don't wait for available tokens (don't use an internal queue with `setTimeout`)
+* Don't use callbacks
+* ParentBucket removed
 
 ## Installation ##
 
@@ -23,26 +28,20 @@ A simple example allowing 150 requests per hour:
     // Allow 150 requests per hour (the Twitter search limit). Also understands
     // 'second', 'minute', 'day', or a number of milliseconds
     var limiter = new RateLimiter(150, 'hour');
-    
+
     // Throttle requests
-    limiter.removeTokens(1, function(err, remainingRequests) {
-      // err will only be set if we request more than the maximum number of
-      // requests we set in the constructor
-      
-      // remainingRequests tells us how many additional requests could be sent
-      // right this moment
-      
+    if(limiter.accept(1)){
       callMyRequestSendingFunction(...);
-    });
+    }
 
 Another example allowing one message to be sent every 250ms:
 
     var RateLimiter = require('limiter').RateLimiter;
     var limiter = new RateLimiter(1, 250);
-    
-    limiter.removeTokens(1, function() {
+
+    if(limiter.accept(1)){
       callMyMessageSendingFunction(...);
-    });
+    }
 
 Uses the token bucket directly to throttle at the byte level:
 
@@ -51,19 +50,12 @@ Uses the token bucket directly to throttle at the byte level:
     var TokenBucket = require('limiter').TokenBucket;
     // We could also pass a parent token bucket in as the last parameter to
     // create a hierarchical token bucket
-    var bucket = new TokenBucket(BURST_RATE, FILL_RATE, 'second', null);
-    
-    bucket.removeTokens(myData.byteLength, function() {
+    var bucket = new TokenBucket(BURST_RATE, FILL_RATE, 'second');
+
+    if(bucket.accept(myData.byteLength)){
       sendMyData(myData);
     });
 
-## Additional Notes ##
-
-Both the token bucket and rate limiter should be used with a message queue or 
-some way of preventing multiple simultaneous calls to removeTokens(). 
-Otherwise, earlier messages may get held up for long periods of time if more 
-recent messages are continually draining the token bucket. This can lead to 
-out of order messages or the appearance of "lost" messages under heavy load.
 
 ## Sponsors ##
 

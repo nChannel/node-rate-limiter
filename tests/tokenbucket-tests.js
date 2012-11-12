@@ -1,4 +1,4 @@
-var vows = require('vows');
+var vows   = require('vows');
 var assert = require('assert');
 
 var TIMING_EPSILON = 10;
