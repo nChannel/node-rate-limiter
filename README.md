@@ -1,4 +1,3 @@
-
 # limiter #
 
 Provides a generic rate limiter for node.js. Useful for API clients, web
@@ -18,7 +17,7 @@ restrictions like "150 requests per hour maximum".
 
 Use NPM to install:
 
-    npm install limiter
+    npm install limiter2
 
 ## Usage ##
 
