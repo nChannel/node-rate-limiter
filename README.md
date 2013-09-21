@@ -57,6 +57,8 @@ Uses the token bucket directly to throttle at the byte level:
       sendMyData(myData);
     });
 
+## Donate
+[Donate Bitcoins](https://coinbase.com/checkouts/fc3041b9d8116e0b98e7d243c4727a30)
 
 ## Sponsors ##
 
