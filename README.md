@@ -1,4 +1,6 @@
-# limiter #
+Node Rate Limiter [![Gittip](http://badgr.co/gittip/fgribreau.png)](https://www.gittip.com/fgribreau/)
+---------
+
 
 Provides a generic rate limiter for node.js. Useful for API clients, web
 crawling, or other tasks that need to be throttled. Two classes are exposed,
